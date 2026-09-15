@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merchant Growth AI | AI Business Partner for Paytm Merchants</title>
+  <meta name="description" content="Merchant Growth AI — Your intelligent business partner for every Paytm merchant. Real-time insights, growth recommendations, AI chat, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paytm: {
+              blue: '#00BAF2',
+              dark: '#002970',
+              navy: '#0A2540',
+              light: '#E8F7FC',
+              accent: '#00D4FF'
+            },
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'Inter', 'sans-serif']
+          },
+          boxShadow: {
+            'glow': '0 0 40px rgba(0, 186, 242, 0.25)',
+            'card': '0 4px 24px rgba(10, 37, 64, 0.08)',
+            'card-hover': '0 12px 40px rgba(10, 37, 64, 0.12)'
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-18">
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-paytm-blue to-paytm-dark flex items-center justify-center shadow-lg shadow-paytm-blue/30 group-hover:scale-105 transition-transform">
+            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-display font-bold text-lg text-paytm-navy tracking-tight">Merchant Growth</span>
+            <span class="font-display font-bold text-lg text-paytm-blue"> AI</span>
+          </div>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="text-sm font-medium text-slate-600 hover:text-paytm-dark transition">Features</a>
+          <a href="#dashboard" class="text-sm font-medium text-slate-600 hover:text-paytm-dark transition">Dashboard</a>
+          <a href="#ai-chat" class="text-sm font-medium text-slate-600 hover:text-paytm-dark transition">AI Partner</a>
+          <a href="#insights" class="text-sm font-medium text-slate-600 hover:text-paytm-dark transition">Insights</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition" aria-label="Toggle theme">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <button onclick="scrollToSection('dashboard')" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-paytm-dark text-white text-sm font-semibold hover:bg-paytm-navy transition shadow-lg shadow-paytm-dark/20">
+            Open Dashboard
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </button>
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white">
+      <div class="px-4 py-3 space-y-1">
+        <a href="#features" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Features</a>
+        <a href="#dashboard" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Dashboard</a>
+        <a href="#ai-chat" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">AI Partner</a>
+        <a href="#insights" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Insights</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-paytm-light via-white to-sky-50"></div>
+    <div class="absolute top-20 right-0 w-[600px] h-[600px] bg-paytm-blue/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-paytm-dark/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-paytm-blue/10 text-paytm-dark text-xs font-semibold mb-6">
+            <span class="w-2 h-2 rounded-full bg-paytm-blue animate-pulse"></span>
+            Powered by Applied AI for Indian Merchants
+          </div>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-paytm-navy leading-[1.1] tracking-tight mb-6">
+            Your AI Business Partner for<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-paytm-blue to-paytm-dark">Every Paytm Merchant</span>
+          </h1>
+          <p class="text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            Turn payments data into growth. Get real-time insights, smart recommendations, customer engagement tips, and an always-on AI assistant — built for India’s merchants.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            <button onclick="scrollToSection('dashboard')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-paytm-dark text-white font-semibold hover:bg-paytm-navy transition shadow-xl shadow-paytm-dark/25 hover:shadow-2xl hover:-translate-y-0.5">
+              Explore Live Dashboard
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </button>
+            <button onclick="scrollToSection('ai-chat')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-paytm-dark font-semibold border-2 border-slate-200 hover:border-paytm-blue hover:bg-paytm-light/50 transition">
+              Talk to AI Partner
+            </button>
+          </div>
+          <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-slate-500">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Real-time insights
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Multilingual AI
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Growth agents
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero visual card -->
+        <div class="relative">
+          <div class="relative bg-white rounded-2xl shadow-2xl shadow-paytm-dark/10 border border-slate-200/80 p-5 md:p-6 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-paytm-blue/20 to-transparent rounded-bl-full"></div>
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Today’s Snapshot</p>
+                <p class="font-display font-bold text-2xl text-paytm-navy mt-0.5">₹42,850</p>
+              </div>
+              <div class="px-2.5 py-1 rounded-lg bg-green-50 text-green-700 text-xs font-semibold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                +18.4%
+              </div>
+            </div>
+            <div class="h-36 mb-5">
+              <canvas id="heroChart"></canvas>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-slate-50 rounded-xl p-3 text-center">
+                <p class="text-xs text-slate-500">Orders</p>
+                <p class="font-bold text-paytm-navy text-lg">127</p>
+              </div>
+              <div class="bg-slate-50 rounded-xl p-3 text-center">
+                <p class="text-xs text-slate-500">Avg. Ticket</p>
+                <p class="font-bold text-paytm-navy text-lg">₹337</p>
+              </div>
+              <div class="bg-slate-50 rounded-xl p-3 text-center">
+                <p class="text-xs text-slate-500">New Cust.</p>
+                <p class="font-bold text-paytm-navy text-lg">34</p>
+              </div>
+            </div>
+          </div>
+          <!-- Floating badges -->
+          <div class="absolute -left-4 top-1/3 bg-white rounded-xl shadow-lg border border-slate-100 px-3 py-2 flex items-center gap-2 animate-float">
+            <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-slate-800">Peak Hour Tip</p>
+              <p class="text-[10px] text-slate-500">2–4 PM · Stock more chai</p>
+            </div>
+          </div>
+          <div class="absolute -right-2 bottom-16 bg-white rounded-xl shadow-lg border border-slate-100 px-3 py-2 flex items-center gap-2 animate-float-delayed">
+            <div class="w-8 h-8 rounded-lg bg-paytm-blue/15 flex items-center justify-center text-paytm-blue">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-slate-800">AI Suggestion</p>
+              <p class="text-[10px] text-slate-500">Offer combo deals today</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-paytm-navy mb-4">Everything a merchant needs to grow</h2>
+        <p class="text-slate-600 text-lg">From payments intelligence to marketing agents — one AI partner that understands Indian small businesses.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-paytm-blue/30 hover:shadow-card-hover transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-paytm-blue to-sky-400 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Live Business Insights</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Daily & hourly sales, peak times, average ticket, new vs repeat customers — all in one glance.</p>
+        </div>
+        <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-paytm-blue/30 hover:shadow-card-hover transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">AI Growth Partner</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Chat in Hindi or English. Ask about inventory, pricing, promotions, or “how do I get more customers?”</p>
+        </div>
+        <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-paytm-blue/30 hover:shadow-card-hover transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Smart Recommendations</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Personalized actions: restock alerts, combo offers, festival campaigns, and local competition tips.</p>
+        </div>
+        <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-paytm-blue/30 hover:shadow-card-hover transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Customer Engagement</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Segment customers, suggest loyalty offers, and craft WhatsApp / SMS messages that convert.</p>
+        </div>
+        <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-paytm-blue/30 hover:shadow-card-hover transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Paytm Ecosystem Ready</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Designed around Soundbox, QR, Payment Gateway data — ready to plug into real merchant flows.</p>
+        </div>
+        <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-paytm-blue/30 hover:shadow-card-hover transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-400 to-blue-600 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Indian Languages</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Voice & text support for Hindi and regional languages so every kirana owner can use it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section id="dashboard" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-paytm-navy mb-2">Merchant Dashboard</h2>
+          <p class="text-slate-600">Demo store: <span class="font-semibold text-paytm-dark">Sharma Tea & Snacks · Delhi</span></p>
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="period-select" class="px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-paytm-blue/40">
+            <option value="today">Today</option>
+            <option value="week" selected>This Week</option>
+            <option value="month">This Month</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white rounded-2xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Revenue</span>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">+12.4%</span>
+          </div>
+          <p class="font-display text-2xl font-bold text-paytm-navy" id="kpi-revenue">₹2,84,650</p>
+          <p class="text-xs text-slate-400 mt-1">vs last week</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Orders</span>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">+8.1%</span>
+          </div>
+          <p class="font-display text-2xl font-bold text-paytm-navy" id="kpi-orders">842</p>
+          <p class="text-xs text-slate-400 mt-1">transactions</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Avg. Ticket</span>
+            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">+3.9%</span>
+          </div>
+          <p class="font-display text-2xl font-bold text-paytm-navy" id="kpi-ticket">₹338</p>
+          <p class="text-xs text-slate-400 mt-1">per order</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">New Customers</span>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">+21%</span>
+          </div>
+          <p class="font-display text-2xl font-bold text-paytm-navy" id="kpi-customers">186</p>
+          <p class="text-xs text-slate-400 mt-1">first-time buyers</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Sales Chart -->
+        <div class="lg:col-span-2 bg-white rounded-2xl p-5 md:p-6 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-display font-semibold text-lg text-paytm-navy">Sales Trend</h3>
+            <div class="flex gap-2 text-xs">
+              <button class="chart-tab active px-2.5 py-1 rounded-lg bg-paytm-blue/10 text-paytm-dark font-medium" data-chart="revenue">Revenue</button>
+              <button class="chart-tab px-2.5 py-1 rounded-lg text-slate-500 hover:bg-slate-100 font-medium" data-chart="orders">Orders</button>
+            </div>
+          </div>
+          <div class="h-64">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Peak Hours & Top Items -->
+        <div class="space-y-6">
+          <div class="bg-white rounded-2xl p-5 shadow-card border border-slate-100">
+            <h3 class="font-display font-semibold text-paytm-navy mb-4">Peak Hours Today</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-medium text-slate-500 w-14">2–3 PM</span>
+                <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-paytm-blue to-sky-400 rounded-full" style="width: 92%"></div>
+                </div>
+                <span class="text-xs font-semibold text-slate-700">92%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-medium text-slate-500 w-14">11–12</span>
+                <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-paytm-blue to-sky-400 rounded-full" style="width: 78%"></div>
+                </div>
+                <span class="text-xs font-semibold text-slate-700">78%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-medium text-slate-500 w-14">5–6 PM</span>
+                <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-paytm-blue to-sky-400 rounded-full" style="width: 65%"></div>
+                </div>
+                <span class="text-xs font-semibold text-slate-700">65%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-medium text-slate-500 w-14">8–9 AM</span>
+                <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-paytm-blue to-sky-400 rounded-full" style="width: 48%"></div>
+                </div>
+                <span class="text-xs font-semibold text-slate-700">48%</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 shadow-card border border-slate-100">
+            <h3 class="font-display font-semibold text-paytm-navy mb-4">Top Selling Items</h3>
+            <ul class="space-y-3">
+              <li class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-sm">☕</span>
+                  <span class="text-sm font-medium text-slate-700">Masala Chai</span>
+                </div>
+                <span class="text-sm font-semibold text-paytm-navy">214</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-sm">🥟</span>
+                  <span class="text-sm font-medium text-slate-700">Samosa</span>
+                </div>
+                <span class="text-sm font-semibold text-paytm-navy">168</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-yellow-100 flex items-center justify-center text-sm">🥪</span>
+                  <span class="text-sm font-medium text-slate-700">Bread Pakora</span>
+                </div>
+                <span class="text-sm font-semibold text-paytm-navy">97</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center text-sm">🥗</span>
+                  <span class="text-sm font-medium text-slate-700">Veg Sandwich</span>
+                </div>
+                <span class="text-sm font-semibold text-paytm-navy">72</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Chat Section -->
+  <section id="ai-chat" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-paytm-navy mb-4">Your AI Business Partner</h2>
+        <p class="text-slate-600 text-lg">Ask anything about your store. Get practical answers in seconds — in English or Hindi.</p>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 shadow-card overflow-hidden">
+          <!-- Chat header -->
+          <div class="bg-gradient-to-r from-paytm-dark to-paytm-navy px-5 py-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-white">Growth AI</p>
+              <p class="text-xs text-paytm-blue/90 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                Online · Demo mode
+              </p>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div id="chat-messages" class="h-80 overflow-y-auto p-4 space-y-4 scroll-smooth">
+            <div class="flex gap-3">
+              <div class="w-8 h-8 rounded-full bg-paytm-dark flex-shrink-0 flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div class="bg-white rounded-2xl rounded-tl-md px-4 py-3 shadow-sm border border-slate-100 max-w-[85%]">
+                <p class="text-sm text-slate-700">Namaste! Main aapka AI business partner hoon. Aaj aapki sales ₹42,850 rahi. Kya main aapko growth tips doon, ya koi sawal poochna hai?</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="px-4 pb-2 flex flex-wrap gap-2">
+            <button class="quick-prompt px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 hover:border-paytm-blue hover:text-paytm-dark transition" data-prompt="How can I increase sales this week?">Increase sales</button>
+            <button class="quick-prompt px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 hover:border-paytm-blue hover:text-paytm-dark transition" data-prompt="What should I restock?">Restock advice</button>
+            <button class="quick-prompt px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 hover:border-paytm-blue hover:text-paytm-dark transition" data-prompt="Suggest a festival offer">Festival offer</button>
+            <button class="quick-prompt px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 hover:border-paytm-blue hover:text-paytm-dark transition" data-prompt="Peak hours analysis">Peak hours</button>
+          </div>
+
+          <!-- Input -->
+          <div class="p-4 border-t border-slate-200 bg-white">
+            <form id="chat-form" class="flex gap-2">
+              <input type="text" id="chat-input" placeholder="Ask about sales, inventory, marketing..." class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-paytm-blue/40 focus:border-paytm-blue" autocomplete="off" />
+              <button type="submit" class="px-4 py-2.5 rounded-xl bg-paytm-dark text-white font-medium hover:bg-paytm-navy transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights & Recommendations -->
+  <section id="insights" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-paytm-navy mb-4">AI Growth Recommendations</h2>
+        <p class="text-slate-600 text-lg">Actionable ideas generated from your payment and order patterns.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 hover:shadow-card-hover transition group">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-green-50 text-green-700 text-xs font-semibold">High Impact</span>
+            <span class="text-2xl">📈</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Combo Offer: Chai + Samosa</h3>
+          <p class="text-sm text-slate-600 mb-4 leading-relaxed">72% of samosa buyers also take chai within 10 minutes. Bundle at ₹45 (vs ₹50) can lift average ticket by ~8%.</p>
+          <button class="text-sm font-semibold text-paytm-blue hover:text-paytm-dark flex items-center gap-1 group-hover:gap-2 transition-all">
+            Apply suggestion
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 hover:shadow-card-hover transition group">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 text-xs font-semibold">Restock</span>
+            <span class="text-2xl">📦</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Restock Milk & Tea Powder</h3>
+          <p class="text-sm text-slate-600 mb-4 leading-relaxed">Based on last 7 days consumption, milk will run out by Thursday evening. Order 20L milk + 2kg tea powder today.</p>
+          <button class="text-sm font-semibold text-paytm-blue hover:text-paytm-dark flex items-center gap-1 group-hover:gap-2 transition-all">
+            Set reminder
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 hover:shadow-card-hover transition group">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-violet-50 text-violet-700 text-xs font-semibold">Marketing</span>
+            <span class="text-2xl">🎯</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Festival Weekend Push</h3>
+          <p class="text-sm text-slate-600 mb-4 leading-relaxed">Local festival next weekend. Last similar event saw +34% sales. Prep special sweets & run a “Buy 2 Get 1 Chai Free” campaign.</p>
+          <button class="text-sm font-semibold text-paytm-blue hover:text-paytm-dark flex items-center gap-1 group-hover:gap-2 transition-all">
+            Create campaign
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 hover:shadow-card-hover transition group">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-700 text-xs font-semibold">Timing</span>
+            <span class="text-2xl">⏰</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Extend Evening Hours</h3>
+          <p class="text-sm text-slate-600 mb-4 leading-relaxed">Orders between 6–8 PM grew 22% this month. Consider staying open till 8:30 PM on weekdays to capture more office-return traffic.</p>
+          <button class="text-sm font-semibold text-paytm-blue hover:text-paytm-dark flex items-center gap-1 group-hover:gap-2 transition-all">
+            View details
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 hover:shadow-card-hover transition group">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 text-xs font-semibold">Loyalty</span>
+            <span class="text-2xl">❤️</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Reward Repeat Customers</h3>
+          <p class="text-sm text-slate-600 mb-4 leading-relaxed">48 customers visited 5+ times this month. Send them a free samosa coupon via Paytm or WhatsApp to boost retention.</p>
+          <button class="text-sm font-semibold text-paytm-blue hover:text-paytm-dark flex items-center gap-1 group-hover:gap-2 transition-all">
+            Draft message
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 hover:shadow-card-hover transition group">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 text-xs font-semibold">Pricing</span>
+            <span class="text-2xl">💰</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-paytm-navy mb-2">Slight Price Nudge</h3>
+          <p class="text-sm text-slate-600 mb-4 leading-relaxed">Your chai price is ₹5 below nearby competitors. A ₹2 increase has high acceptance probability and can add ~₹8k/month.</p>
+          <button class="text-sm font-semibold text-paytm-blue hover:text-paytm-dark flex items-center gap-1 group-hover:gap-2 transition-all">
+            Simulate impact
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-gradient-to-br from-paytm-dark via-paytm-navy to-slate-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-paytm-blue rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-sky-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-3xl mx-auto px-4 text-center">
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Ready to grow with AI?</h2>
+      <p class="text-paytm-blue/90 text-lg mb-8">This is a fully interactive demo of Merchant Growth AI — the intelligent partner designed for every Paytm merchant.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="scrollToSection('dashboard')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-paytm-dark font-semibold hover:bg-paytm-light transition shadow-xl">
+          Back to Dashboard
+        </button>
+        <button onclick="scrollToSection('ai-chat')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-paytm-blue text-white font-semibold hover:bg-sky-400 transition">
+          Chat with AI Partner
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-paytm-blue to-paytm-dark flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="font-display font-semibold text-white">Merchant Growth AI</span>
+        </div>
+        <p class="text-sm text-center">Demo project · Built for Paytm merchants · Not affiliated with Paytm</p>
+        <p class="text-xs">© 2026 · Interactive prototype</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
