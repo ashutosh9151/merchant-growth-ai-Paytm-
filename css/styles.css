@@ -1,0 +1,101 @@
+/* Merchant Growth AI - Custom Styles */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Floating animation for hero badges */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out infinite 1s;
+}
+
+/* Chat message animations */
+.chat-message-enter {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typing indicator */
+.typing-dot {
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Chart tabs */
+.chart-tab.active {
+  background-color: rgba(0, 186, 242, 0.12);
+  color: #002970;
+}
+
+/* Custom scrollbar for chat */
+#chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+#chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+#chat-messages::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+#chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Navbar scroll state */
+#navbar.scrolled {
+  box-shadow: 0 4px 20px rgba(10, 37, 64, 0.06);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .animate-float,
+  .animate-float-delayed {
+    display: none;
+  }
+}
+
+/* Focus rings */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #00BAF2;
+  outline-offset: 2px;
+}
+
+/* Smooth card hover */
+.group:hover .group-hover\:gap-2 {
+  gap: 0.5rem;
+}
