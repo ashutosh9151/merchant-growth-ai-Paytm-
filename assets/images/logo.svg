@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <rect width="40" height="40" rx="10" fill="url(#logoGrad)"/>
+  <path d="M20 8L11 22h7v10l9-14h-7V8z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+  <defs>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00BAF2"/>
+      <stop offset="1" stop-color="#002970"/>
+    </linearGradient>
+  </defs>
+</svg>
